@@ -7,13 +7,14 @@ d3.json("samples.json").then(function(data) {
 
 const dataPromise = d3.json("samples.json");
 console.log("Data Promise: ", dataPromise)
-//Up to now works
+
+
 function unpack(rows, index) {
     return rows.map(function(row) {
         return row[index];
     });
 }
-//2.Dropdown
+//2.Dropdown #1 (got help from my tutor on lines 20-65)
 //(#selDataset)
 //Create init 
 function init() {
@@ -32,7 +33,7 @@ function init() {
 }
 init();
 
-//Event listener function
+//Event listener function #2
 function optionChanged(newSample) {
 //recall function inside option change (buildPlot(neewsample))
     buildPlot(newSample);
@@ -43,7 +44,7 @@ function optionChanged(newSample) {
 
 //Unpack JSON
 
-//Building plot by feeding the sample id value from above init function
+//Building plot by feeding the sample id value from above init function #3
 function buildPlot(sample) {
     d3.json("samples.json").then((data) => {
         //Filer function matching the id
@@ -62,22 +63,33 @@ function buildPlot(sample) {
         console.log(sample_values);
         console.log(otu_ids);
         console.log(otu_labels);
+
         //trace, layout go here *****USE SLICE & REVERSE to display top 10 OTUs
-        var trace1 = {
+        let trace1 = {
             x: sample_values,
             y: otu_ids,
             text: otu_labels,
-            type: "bar"
+            type: 'bar',
+            orientation: 'h'
         };
 
-        var layout = {
-            xaxis: {"OTU ": sample_values},
-            yaxis: {otu_ids}
-        }
-        //Plotly.NewPlot("bar",trace1, layout);
+        let layout = {
+            xaxis: { title: "Sample Values" },
+            yaxis: { title: "OTU IDs" }
+        };
+
+        Plotly.NewPlot("bar",trace1, layout);
+
+        //Demographic data
+        // var metadata = d3.select("#sample-metadata");
+        // var metadataSamples = data.metadataSamples
+        // var filteredMetadata = metadataSamples.filter(metadataSampleID => metadataSampleID.id === sample)[0];
+        // var 
+        // Object.keys
     }) 
 }
 
+
 //buildPlot();
 //id directly
-Plotly.NewPlot("bar",trace1, layout);
+//Plotly.NewPlot("bar",trace1, layout);
