@@ -52,8 +52,10 @@ function buildPlot(sample) {
         var filteredData = samples.filter(sampleID => sampleID.id === sample)[0]
         
         //Use sample_values as the values for the bar chart.
-        var sample_values = filteredData.sample_values;
         
+        var sample_values_all = filteredData.sample_values;
+        var sample_values = sample_values_all.slice(0,10)
+        console.log(sample_values)
         //Use otu_ids as the labels for the bar chart.
         var otu_ids = filteredData.otu_ids;
 
@@ -66,20 +68,21 @@ function buildPlot(sample) {
 
         //trace, layout go here *****USE SLICE & REVERSE to display top 10 OTUs
         let trace1 = {
-            x: sample_values,
-            y: otu_ids,
+            x: sample_values, 
+            y: otu_ids, //how to put OTU in front of ID
             text: otu_labels,
             type: 'bar',
             orientation: 'h'
         };
+        var data = [trace1];
 
         let layout = {
             xaxis: { title: "Sample Values" },
-            yaxis: { title: "OTU IDs" }
+            yaxis: { title: "OTU IDs" },
         };
 
-        Plotly.NewPlot("bar",trace1, layout);
-
+        Plotly.newPlot("bar",data, layout);
+ 
         //Demographic data
         // var metadata = d3.select("#sample-metadata");
         // var metadataSamples = data.metadataSamples
@@ -87,7 +90,7 @@ function buildPlot(sample) {
         // var 
         // Object.keys
     }) 
-}
+};
 
 
 //buildPlot();
