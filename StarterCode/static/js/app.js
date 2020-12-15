@@ -54,13 +54,17 @@ function buildPlot(sample) {
         //Use sample_values as the values for the bar chart.
         
         var sample_values_all = filteredData.sample_values;
-        var sample_values = sample_values_all.slice(0,10)
-        console.log(sample_values)
+        var sample_values = sample_values_all.slice(0,10);
+        //console.log(sample_values);
+        
         //Use otu_ids as the labels for the bar chart.
-        var otu_ids = filteredData.otu_ids;
+        var otu_ids_all = filteredData.otu_ids;
+        var otu_ids = otu_ids_all.slice(0,10);
+        //console.log(otu_ids)
 
         //Use otu_labels as the hovertext for the chart.
-        var otu_labels = filteredData.otu_labels;
+        var otu_labels_all = filteredData.otu_labels;
+        var otu_labels = otu_labels_all.slice(0,10);
 
         console.log(sample_values);
         console.log(otu_ids);
@@ -78,7 +82,7 @@ function buildPlot(sample) {
 
         let layout = {
             xaxis: { title: "Sample Values" },
-            yaxis: { title: "OTU IDs" },
+            yaxis: { title: "Top 10 OTU IDs" },
         };
 
         Plotly.newPlot("bar",data, layout);
