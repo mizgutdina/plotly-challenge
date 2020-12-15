@@ -54,17 +54,17 @@ function buildPlot(sample) {
         //Use sample_values as the values for the bar chart.
         
         var sample_values_all = filteredData.sample_values;
-        var sample_values = sample_values_all.slice(0,10);
+        var sample_values = sample_values_all.slice(0,10).reverse();
         //console.log(sample_values);
         
         //Use otu_ids as the labels for the bar chart.
         var otu_ids_all = filteredData.otu_ids;
-        var otu_ids = otu_ids_all.slice(0,10);
+        var otu_ids = otu_ids_all.slice(0,10).reverse();
         //console.log(otu_ids)
 
         //Use otu_labels as the hovertext for the chart.
         var otu_labels_all = filteredData.otu_labels;
-        var otu_labels = otu_labels_all.slice(0,10);
+        var otu_labels = otu_labels_all.slice(0,10).reverse();
 
         console.log(sample_values);
         console.log(otu_ids);
@@ -73,10 +73,11 @@ function buildPlot(sample) {
         //trace, layout go here *****USE SLICE & REVERSE to display top 10 OTUs
         let trace1 = {
             x: sample_values, 
-            y: otu_ids, //how to put OTU in front of ID
+            y: "OTU ${otu_ids}", //how to put OTU in front of ID
             text: otu_labels,
             type: 'bar',
-            orientation: 'h'
+            orientation: 'h',
+            showticklabels: true
         };
         var data = [trace1];
 
