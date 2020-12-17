@@ -1,6 +1,7 @@
 //1. Use the D3 library to read in samples.json.
 
 //Fetch JSON data and console.log it
+//finish with /html("") demographics 
 d3.json("samples.json").then(function(data) {
     console.log(data);
 });
@@ -28,6 +29,7 @@ function init() {
         })
         //build chart with first id name
         buildPlot(sampleIDNames[0]);
+        //buildDemo(sampleIDNames[0]);
     })
 
 }
@@ -37,6 +39,7 @@ init();
 function optionChanged(newSample) {
 //recall function inside option change (buildPlot(neewsample))
     buildPlot(newSample);
+    //buildDemo(newSample);
 };
 
 //3. Create a horizontal bar chart with a dropdown menu 
@@ -73,11 +76,11 @@ function buildPlot(sample) {
         //trace, layout go here *****USE SLICE & REVERSE to display top 10 OTUs
         let trace1 = {
             x: sample_values, 
-            y: "OTU ${otu_ids}", //how to put OTU in front of ID
+            y: (`OTU ${otu_ids}`), //how to put OTU in front of ID
             text: otu_labels,
-            type: 'bar',
-            orientation: 'h',
-            showticklabels: true
+            type: "bar",
+            orientation: "h"
+            //showticklabels: true
         };
         var data = [trace1];
 
@@ -87,17 +90,52 @@ function buildPlot(sample) {
         };
 
         Plotly.newPlot("bar",data, layout);
+
+        //Buble chart
+        // Use otu_ids for the x values.
+        // Use sample_values for the y values.
+        // Use sample_values for the marker size.
+        // Use otu_ids for the marker colors.
+        // Use otu_labels for the text values.
+        var trace2 = {
+            x: otu_ids,
+            y: sample_values,
+            mode: 'markers',
+            marker: {
+                size: sample_values,
+                color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)',
+                        'rgb(255, 0, 0)', 'rgb(204, 153, 255)', 'rgb(204, 255, 255)', 'rgb(255, 128, 0)',
+                        'rgb(0, 0, 255)', 'rgb(255, 51, 153)', 'rgb(0, 255, 0)'],
+
+                opacity: [1, 0.8, 0.6, 0.4, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.6]
+            }
+        };
+        var data2 = [trace2];
+        var layout2 = {
+            title: " ",
+            showlegend: false,
+            xaxis: { title: "OTU ID" },
+            height: 500,
+            width: 900
+        };
+        Plotly.newPlot("bubble", data2, layout2)
  
-        //Demographic data
-        // var metadata = d3.select("#sample-metadata");
-        // var metadataSamples = data.metadataSamples
-        // var filteredMetadata = metadataSamples.filter(metadataSampleID => metadataSampleID.id === sample)[0];
-        // var 
-        // Object.keys
+        
     }) 
 };
 
+// function buildDemo (sample) {
+//     d3.json("samples.json").then((data) => {
+// //Demographic data
+//         var metadata = d3.select("#sample-metadata");
+//         var metadataSamples = data.metadata
+//         var filteredMetadata = metadataSamples.filter(metadataSampleID => metadataSampleID.id === sample)[0];
+//         var id = filteredMetadata.id
+//         console.log(id)
+//         // Object.keys
 
+
+// };
 //buildPlot();
 //id directly
 //Plotly.NewPlot("bar",trace1, layout);
