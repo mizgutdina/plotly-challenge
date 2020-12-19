@@ -17,7 +17,7 @@ function unpack(rows, index) {
         return row[index];
     });
 }
-//2.Dropdown #1 (got help from my tutor on lines 20-65)
+//2.Dropdown #1 (got help from my tutor on lines 20-172)
 //(#selDataset)
 //Create init 
 function init() {
